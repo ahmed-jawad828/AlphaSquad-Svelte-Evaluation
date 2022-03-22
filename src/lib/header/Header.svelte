@@ -9,8 +9,8 @@
 		</a>
 	</div>
 
-	<nav class='bg-red-400'>
-    <div class="bg-yellow-600">Textual</div>
+	<nav class="bg-purple-400">
+		<div class="">Textal</div>
 	</nav>
 
 	<div class="corner">
