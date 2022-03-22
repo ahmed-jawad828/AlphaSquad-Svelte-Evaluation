@@ -24,7 +24,6 @@
 		margin: 0 auto;
 		box-sizing: border-box;
 	}
-
 	footer {
 		display: flex;
 		flex-direction: column;

@@ -2,15 +2,15 @@
 	import alphalogo from './alpha-logo.png';
 </script>
 
-<header>
+<header class="flex justify-center items-center">
 	<div class="corner">
 		<a href="https://kit.svelte.dev">
 			<img src={alphalogo} alt="SvelteKit" />
 		</a>
 	</div>
 
-	<nav class="bg-purple-400">
-		<div class="">Textal</div>
+	<nav class="">
+		<div class="">Figit Component Commander</div>
 	</nav>
 
 	<div class="corner">
