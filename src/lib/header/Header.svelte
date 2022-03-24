@@ -1,20 +1,24 @@
 <script>
 	import alphalogo from './alpha-logo.png';
+	import githublogo from './githublogo.png';
 </script>
 
 <header class="flex justify-center items-center">
 	<div class="corner">
-		<a href="https://kit.svelte.dev">
+		<a href="https://www.alphasquad.studio/" target="_blank">
 			<img src={alphalogo} alt="SvelteKit" />
 		</a>
 	</div>
 
 	<nav class="">
-		<div class="">Figit Component Commander</div>
+		<div class="font-mono text-gray-500 font-bold">Figit Component Commander</div>
 	</nav>
 
 	<div class="corner">
 		<!-- TODO put something else here? github link? -->
+		<a href="https://github.com/ahmed-jawad828/AlphaSquad-Svelte-Evaluation" target="_blank">
+			<img src={githublogo} alt="SvelteKit" />
+		</a>
 	</div>
 </header>
 
