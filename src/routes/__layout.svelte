@@ -1,39 +1,70 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
-	let JsonObject = '';
+	import { afterUpdate } from 'svelte';
+	let JsonObject = 'asdas';
+
 	let isJsonObjectValid = false;
 	const handleJsonChange = (e) => {
-		// console.log('🚀 ~ file: __layout.svelte ~ line 31 ~ handleJsonChange ~ e', e.target.value);
 		JsonObject = e.target.value;
-		// console.log('🚀 ~ file: __layout.svelte ~ line 9 ~ handleJsonChange ~ JsonObject', JsonObject);
-		let newString = JsonObject.replace('[', '');
-		// newStr = str.replace('[', '');
-		console.log('🚀 ~ file: __layout.svelte ~ line 10 ~ handleJsonChange ~ newString', newString);
-		// console.log(
-		// 	'🚀 ~ file: __layout.svelte ~ line 9 ~ handleJsonChange ~ JsonObject',
-		// 	JsonObject[30]
-		//  );
-		// JsonObject = newString;
-		// let str = 'AppDividend';
-		console.log('Original String: ', JsonObject);
 
-		// let newStr = JsonObject.replace(/D/g, '');
-		// console.log('After character removed: ', newStr);
+		let temp = [];
+
+		for (let i = 0; i < JsonObject.length; i++) {
+			if (JsonObject[i] === '[' || JsonObject[i] === ']') {
+				console.log('first');
+				temp.push('');
+			} else {
+				temp.push(JsonObject[i]);
+			}
+		}
+		// JsonObject = temp;
 		try {
 			let JSONString = JSON.parse(JsonObject);
 			// console.log(
 			// 	'🚀 ~ file: __layout.svelte ~ line 12 ~ handleJsonChange ~ JSONString',
 			// 	JSONString
 			// );
+			JSONString.check?.charAt(0)
+
 			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 18 ~ handleJsonChange ~ JSONString.check?.charAt(0)',
-			// 	JSONString.check?.charAt(0)
-			// );
+			// console.lo({arif nhattrri})
+)
 			if (
 				JSONString.check?.charAt(0) != '[' ||
 				JSONString.check.charAt(JSONString.check.length - 1) != ']'
 			) {
+				console.log('first');
+				isJsonObjectValid = true;
+				console.log(isJsonObjectValid);
+			}
+
+			if (
+				JSONString.check?.charAt(0) === '[' &&
+				JSONString.check?.charAt(JSONString.check.length - 1) === ']'
+			) {
+				console.log('Second');
+				JSONString.shift();
+				JSONString.pop();
+				console.log(
+					'🚀 ~ file: __layout.svelte ~ line 23 ~ handleJsonChange ~ JSONString',
+					JSONString
+				);
+				isJsonObjectValid = true;
+				console.log(isJsonObjectValid);
+			}
+			if (JSONString.check?.charAt(0) === '[') {
+				JSONString.shift();
+
+				console.log(
+					'🚀 ~ file: __layout.svelte ~ line 23 ~ handleJsonChange first ~ JSONString',
+					JSONString
+				);
+				isJsonObjectValid = true;
+				console.log(isJsonObjectValid);
+			}
+			if (JSONString.check.charAt(JSONString.check.length - 1) != ']') {
+				JSONString.pop();
 				isJsonObjectValid = true;
 				console.log(isJsonObjectValid);
 			}
@@ -45,6 +76,7 @@
 			return false;
 		}
 	};
+	console.log('🚀 ~ file: __layout.svelte ~ line 6 ~ JsonObject', JsonObject);
 </script>
 
 <Header />
@@ -57,6 +89,8 @@
 						class="text-gray-500 text-sm w-full placeholder:py-2 placeholder:px-3 py-2 placeholder:text-xs outline-none"
 						rows="6"
 						placeholder="Paste your JSON code here"
+						on:input={handleJsonChange}
+						bind:value={JsonObject}
 						on:input={handleJsonChange}
 					/>
 				</form>
