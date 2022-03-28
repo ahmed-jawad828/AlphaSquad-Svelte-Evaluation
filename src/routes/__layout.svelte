@@ -1,7 +1,7 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
-	import { afterUpdate } from 'svelte';
+	// import { afterUpdate } from 'svelte';
 	let JsonObject = '';
 
 	let isJsonObjectValid = false;
@@ -16,14 +16,10 @@
 				temp.push(JsonObject[i]);
 			}
 		}
-		// console.log('🚀 ~ file: __layout.svelte ~ line 20 ~ handleJsonChange ~ temp', temp);
-		// JsonObject = temp;
 		let dummyJSON = JSON.stringify(temp);
+    // console.log("@jawad ~ file: __layout.svelte ~ line 21 ~ dummyJSON", dummyJSON)
 		let JSONStringObject = JSON.parse(dummyJSON);
-		console.log(
-			'🚀 ~ file: __layout.svelte ~ line 22 ~ handleJsonChange ~ dummyJSON',
-			JSONStringObject
-		);
+    console.log("@jawad ~ file: __layout.svelte ~ line 22 ~ JSONStringObject", JSONStringObject)
 		try {
 			let JSONString = JSON.parse(JsonObject);
 			if (
@@ -36,7 +32,7 @@
 				JSONString.check?.charAt(0) === '[' &&
 				JSONString.check.charAt(JSONString.check.length - 1) === ']'
 			) {
-				console.log(JSONString.check?.charAt(0));
+				// console.log(JSONString.check?.charAt(0));
 				JSONString.shift();
 				JSONString.pop();
 				isJsonObjectValid = true;
@@ -89,7 +85,7 @@
 							</div>
 							<h6 class="text-xs">Basic JSON validation</h6>
 							<!-- {console.log({ asdad: isJsonObjectValid })} -->
-							<!-- <p class="pl-4 text-xs">{isJsonObjectValid}</p> -->
+							<p class="pl-4 text-xs">{isJsonObjectValid}</p>
 						</div>
 						<div
 							class="flex border-red-500 px-2 py-2 border-2 text-md rounded-md text-red-500 transform hover:scale-105 bg-white  transition duration-500 cursor-pointer"
