@@ -1,4 +1,4 @@
-# create-svelte
+# Figit Component Commander
 
 It's Figit Component Commander for checking JSON Object Validation.
 Comments aren't added in code yet.
