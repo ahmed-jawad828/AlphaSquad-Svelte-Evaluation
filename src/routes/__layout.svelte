@@ -1,8 +1,11 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
-
+	import JSONState from '../stores/JSONState.js';
 	let JsonObject = '';
+	// JSONState.subscribe((data) => {
+	// 	JsonObject = data;
+	// });
 	let isJsonObjectValid = false;
 	let isSquareBracketRemoved = false;
 
