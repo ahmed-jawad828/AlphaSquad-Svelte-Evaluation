@@ -3,7 +3,9 @@
 It's Figit Component Commander for checking JSON Object Validation.
 Comments aren't added in code yet.
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
+
+Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).![figit-component-commander](https://user-images.githubusercontent.com/79979258/160592671-4b7adfda-54d9-4ab9-af7f-ea80c3a589f2.png)
+
 
 ## Creating a project
 
