@@ -1,97 +1,41 @@
 <script>
 	import Header from '$lib/header/Header.svelte';
 	import '../app.css';
-	// import { afterUpdate } from 'svelte';
-	let JsonObject = '';
 
+	let JsonObject = '';
 	let isJsonObjectValid = false;
+	let isSquareBracketRemoved = false;
+
 	const handleJsonChange = (e) => {
 		JsonObject = e.target.value;
-		// JsonObject = e.target.value;
-		// JsonObject.charAt(0);
-		// JsonObject.charAt(JsonObject.check.length - 1);
-		// let temp = [];
-		// for (let i = 0; i < JsonObject.length; i++) {
-		// 	if (JsonObject[i] === '[' || JsonObject[i] === ']') {
-		// 		console.log('first');
-		// 		temp.push('');
-		// 	} else {
-		// 		temp.push(JsonObject[i]);
-		// 	}
-		// }
-		// let dummyJSON = JSON.stringify(temp);
-		// // console.log("@jawad ~ file: __layout.svelte ~ line 21 ~ dummyJSON", dummyJSON)
-		// let JSONStringObject = JSON.parse(dummyJSON);
-		// console.log("@jawad ~ file: __layout.svelte ~ line 22 ~ JSONStringObject", JSONStringObject)
+
+		let JSONStringify = JSON.stringify(JsonObject);
+		let firstSlice;
+		let SecondSlice;
+		let StringWithoutBrackets;
+
+		if (JSONStringify.charAt(1) === '[' && JSONStringify.charAt(JSONStringify.length - 2) === ']') {
+			firstSlice = JSONStringify.slice(0, 1);
+			SecondSlice = JSONStringify.slice(2, JSONStringify.length - 2);
+			StringWithoutBrackets = firstSlice + SecondSlice + '"';
+			isSquareBracketRemoved = true;
+		} else if (JSONStringify.charAt(1) === '[') {
+			firstSlice = JSONStringify.slice(0, 1);
+			SecondSlice = JSONStringify.slice(2, JSONStringify.length - 1);
+			StringWithoutBrackets = firstSlice + SecondSlice + '"';
+			isSquareBracketRemoved = true;
+		} else {
+			firstSlice = JSONStringify.slice(0, JSONStringify.length - 2);
+			StringWithoutBrackets = firstSlice + '"';
+			isSquareBracketRemoved = true;
+		}
+
+		let JSONparse = JSON.parse(StringWithoutBrackets);
+		console.log('🚀 ~ file: __layout.svelte ~ line 29 ~ handleJsonChange ~ JSONparse', JSONparse);
+
 		try {
-			let JSONStringify = JSON.stringify(JsonObject);
-			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 28 ~ handleJsonChange ~ JSONStringify',
-			// 	JSONStringify
-			// );
-			let StringWithoutBrackets;
-			let finatstring;
-			let finatstringwithoutbrackets;
-			const lastBracketFlag = JSONStringify.charAt(JSONStringify.length - 6) === ']';
+			let JSONString = JSON.parse(JSONparse);
 
-			// let dummyString = 'Javascript[- the *versatile language';
-			// let indexPosition = 9;
-			// let characterAtIndex = dummyString.charAt(0);
-			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 36 ~ handleJsonChange ~ characterAtIndex',
-			// 	characterAtIndex
-			// );
-			// let finalString = dummyString.split('[').join('');
-
-			// // console.log('Original String: ' + dummyString);
-			// console.log('Final String: ' + finalString);
-			if (
-				JSONStringify.charAt(1) === '[' &&
-				JSONStringify.charAt(JSONStringify.length - 6) === ']'
-			) {
-				let firstSlice = JSONStringify.slice(0, 1);
-
-				let SecondSlice = JSONStringify.slice(2, JSONStringify.length - 3);
-				StringWithoutBrackets = firstSlice + SecondSlice + '"';
-			} else if (JSONStringify.charAt(1) === '[') {
-				let firstSlice = JSONStringify.slice(0, 1);
-
-				let SecondSlice = JSONStringify.slice(2, JSONStringify.length - 1);
-				StringWithoutBrackets = firstSlice + SecondSlice + '"';
-			} else {
-				let firstSlice = JSONStringify.slice(0, JSONStringify.length - 3);
-
-				StringWithoutBrackets = firstSlice + '"';
-			}
-			//else if (
-			// 	JSONStringify.charAt(1) === '[' &&
-			// 	JSONStringify.charAt(JSONStringify.length - 6) === ']'
-			// ) {
-			// 	JSONStringify.splice(1, 1);
-			// 	JSONStringify.splice(JSONStringify.length - 6, 1);
-			// }
-			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 38 ~ handleJsonChange ~ JSONStringify',
-			// 	JSONStringify
-			// );
-
-			let JSONparse = JSON.parse(StringWithoutBrackets);
-			console.log('🚀 ~ file: __layout.svelte ~ line 80 ~ handleJsonChange ~ JSONparse', JSONparse);
-
-			// console.log('🚀 ~ file: __layout.svelte ~ line 28 ~ handleJsonChange ~ JSONparse', JSONparse);
-			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 27 ~ handleJsonChange ~ JSONStringify',
-			// 	JSONStringify.charAt(1)
-			// );
-			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 32 ~ handleJsonChange ~ JSONStringify',
-			// 	JSONStringify.charAt(JSONStringify.length - 6)
-			// );
-			let JSONString = JSON.parse(JsonObject);
-			// console.log(
-			// 	'🚀 ~ file: __layout.svelte ~ line 27 ~ handleJsonChange ~ JSONString',
-			// 	JSONString[0]?.charAt(0)
-			// );
 			if (
 				JSONString.hello?.charAt(0) != '[' ||
 				JSONString.hello.charAt(JSONString.check.length - 1) != ']'
@@ -99,18 +43,6 @@
 				isJsonObjectValid = true;
 				console.log(isJsonObjectValid);
 			}
-			// } else if (
-
-			// 	JSONString.check?.charAt(0) === '[' &&
-			// 	JSONString.check.charAt(JSONString.check.length - 1) === ']'
-			// ) {
-			// 	console.log(JSONString.check?.charAt(0));
-			// 	console.log(JSONString.check?.charAt(JSONString.check.length - 1));
-			// 	JSONString.shift();
-			// 	JSONString.pop();
-			// 	isJsonObjectValid = true;
-			// 	console.log(isJsonObjectValid);
-			// }
 			return true;
 		} catch (e) {
 			isJsonObjectValid = false;
@@ -186,29 +118,55 @@
 								<!-- <p class="pl-4 text-xs">{isJsonObjectValid}</p> -->
 							</div>
 						{/if}
-						<div
-							class="flex border-red-500 px-2 py-2 border-2 text-md rounded-md text-red-500 transform hover:scale-105 bg-white  transition duration-500 cursor-pointer"
-						>
-							<div class="px-2">
-								<svg
-									xmlns="http://www.w3.org/2000/svg"
-									class="h-4  w-4 fill-white "
-									fill="currentColor"
-									viewBox="0 0 24 24"
-									stroke="currentColor"
-									stroke-width="2"
-								>
-									<path
-										stroke-linecap="round"
-										stroke-linejoin="round"
-										d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
-									/>
-								</svg>
+						{#if isSquareBracketRemoved === false}
+							<div
+								class="flex border-red-500 px-2 py-2 border-2 text-md rounded-md text-red-500 transform hover:scale-105 bg-white  transition duration-500 cursor-pointer"
+							>
+								<div class="px-2">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-4  w-4 fill-white "
+										fill="currentColor"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											stroke-linecap="round"
+											stroke-linejoin="round"
+											d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+										/>
+									</svg>
+								</div>
+								<h6 class="text-xs">Removed squared brackets</h6>
+								<!-- {console.log({ asdad: isJsonObjectValid })} -->
+								<!-- <p class="pl-4 text-xs">{isJsonObjectValid}</p> -->
 							</div>
-							<h6 class="text-xs">Removed squared brackets</h6>
-							<!-- {console.log({ asdad: isJsonObjectValid })} -->
-							<!-- <p class="pl-4 text-xs">{isJsonObjectValid}</p> -->
-						</div>
+						{:else}
+							<div
+								class="flex border-green-400 px-2 py-2 border-2 text-md rounded-md text-green-500 transform hover:scale-105 bg-white  transition duration-500 cursor-pointer"
+							>
+								<div class="px-2">
+									<svg
+										xmlns="http://www.w3.org/2000/svg"
+										class="h-4  w-4 fill-white "
+										fill="currentColor"
+										viewBox="0 0 24 24"
+										stroke="currentColor"
+										stroke-width="2"
+									>
+										<path
+											fill-rule="evenodd"
+											d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+											clip-rule="evenodd"
+										/>
+									</svg>
+								</div>
+								<h6 class="text-xs">Removed squared brackets</h6>
+								<!-- {console.log({ asdad: isJsonObjectValid })} -->
+								<!-- <p class="pl-4 text-xs">{isJsonObjectValid}</p> -->
+							</div>
+						{/if}
 						<img
 							src="https://media.giphy.com/media/3oEjI9xj49ehuAGLQY/giphy.gif"
 							class="rounded-md"
